@@ -24,7 +24,7 @@ SKIN = {'fur': {'arctic': EXCEPTIONAL, 'desert': NEUTRAL, 'grassland': NEUTRAL, 
 
 DIET = {'carnivore':{'arctic':FAIR,'desert':NEUTRAL, 'grassland':NEUTRAL, 'jungle':FAIR, 'ocean':NEUTRAL, 'forest':NEUTRAL,'tundra':NEUTRAL},
         'herbivore':{'arctic':POOR,'desert':NEUTRAL, 'grassland':FAIR, 'jungle':FAIR, 'ocean':NEUTRAL, 'forest':FAIR,'tundra':NEUTRAL},
-        'omnivore':{'arctic':FAIR,'desert': NEUTRAL, 'grassland':FAIR, 'jungle':FAIR, 'ocean':NEUTRAL, 'rainforest':EXCEPTIONAL,'tundra':NEUTRAL}
+        'omnivore':{'arctic':FAIR,'desert': NEUTRAL, 'grassland':FAIR, 'jungle':FAIR, 'ocean':NEUTRAL, 'forest':EXCEPTIONAL,'tundra':NEUTRAL}
         }
 
 
