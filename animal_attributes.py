@@ -14,7 +14,7 @@ EXCEPTIONAL = 50
 ENVIRONMENTS = ['desert', 'grassland', 'jungle', 'ocean', 'forest', 'tundra', 'arctic']
 
 SKIN = {'fur': {'arctic': EXCEPTIONAL, 'desert': NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL, 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra':EXCEPTIONAL},
-        'feather': {'arctic': FAIR,'desert':NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL , 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra': NEUTRAL},
+        'feathers': {'arctic': FAIR,'desert':NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL , 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra': NEUTRAL},
         'dry skin': {'arctic': DEATH,'desert': POOR, 'grassland':FAIR, 'jungle':POOR, 'ocean':POOR, 'forest':POOR,'tundra':DEATH},
         'wet skin': {'arctic': DEATH,'desert':DEATH, 'grassland':DEATH, 'jungle': EXCEPTIONAL, 'ocean': FAIR, 'forest': POOR,'tundra':DEATH},
         'dry scales': {'arctic':DEATH,'desert': EXCEPTIONAL, 'grassland':FAIR, 'jungle':FAIR, 'ocean': DEATH, 'forest': POOR,'tundra':DEATH},
