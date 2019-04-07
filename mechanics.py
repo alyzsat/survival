@@ -37,6 +37,8 @@ class Animal:
         self.hp += BREATH [self.breath] [enviro]
         if self.hp > 100:
             self.hp = 100
+        elif self.hp < 0:
+            self.hp = 0
         
     def is_alive (self):
         if self.hp<=0:
@@ -54,6 +56,9 @@ class Animal:
     
     def change_breath(self, newB):
         self.breath = newB
+        
+    def kill(self):
+        self.hp = 0
         
     
     

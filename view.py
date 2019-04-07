@@ -21,6 +21,7 @@ class SurvivalGame:
         self._running = True
         self._mode = START_SCREEN
         self._feature = 0
+        self._next_game_screen = False
         self._environments = aa.ENVIRONMENTS[:4]
         random.shuffle (self._environments)
         self._environment = 0 #"desert" #Does this need to be changed later?
@@ -73,23 +74,32 @@ class SurvivalGame:
                 
     def _draw_game_screen(self):
         self._draw_environment()
-        enviro = self._environments[self._environment]
-        if self._animal.is_alive() and self._environment <= len(self._environments) - 2:
-            self._environment += 1
-            print("Before", enviro, self._animal.hp)
-            self._animal.will_survive(enviro)
-            print("After", enviro, self._animal.hp)
-        elif self._animal.is_alive() and self._environment == len(self._environments) - 1:
-            print("Before", enviro, self._animal.hp)
-            self._animal.will_survive(enviro)
-            print("After", enviro, self._animal.hp)
-            self._mode = WIN_SCREEN
-        else:
-            print("After", self._environments[self._environment], self._animal.hp)
-            self._mode = LOSE_SCREEN
-            print("end the screen")
-            
+        surface = pygame.display.get_surface()
+        
+        attributes = [self._animal.skin, self._animal.move, self._animal.breath, self._animal.diet]
+        
+        for att in attributes:
+            if att == None:
+                self._animal.kill()
+        
+        font = pygame.font.Font(None, 70)
+        next_text = font.render("Next", True, white)
+        pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (400,650,400,100))
+        surface.blit(next_text, (400,650))
 
+        enviro = self._environments[self._environment]
+        if not self._animal.is_alive():
+            self._mode = LOSE_SCREEN
+        
+        if self._next_game_screen and self._animal.is_alive():
+            if self._environment <= len(self._environments) - 2:
+                self._environment += 1
+                self._animal.will_survive(enviro)
+            elif self._environment == len(self._environments) - 1:
+                self._animal.will_survive(enviro)
+                self._mode = WIN_SCREEN
+            self._next_game_screen = False
+            
 
     def _game_loop(self):
         for e in aa.ENVIRONMENTS:
@@ -205,7 +215,6 @@ class SurvivalGame:
             elif cursor_x >= 250 and cursor_x <= 550 \
             and cursor_y >= 700 and cursor_y <= 760:
                 self._mode = GAME_SCREEN
-               # print("WORKED")
                 
             y_pos = 100
             for ft in ATTRIBUTES[self._feature].keys():
@@ -213,6 +222,14 @@ class SurvivalGame:
                 if cursor_x >= 200 and cursor_x <= 600 \
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
+        
+        # 400,650,400,100
+        elif self._mode == GAME_SCREEN:
+            if self._feature != 0 and \
+            cursor_x >= 400 and cursor_x <= 800 \
+            and cursor_y >= 650 and cursor_y <= 750:
+                self._next_game_screen = True
+            
                     
                     
     def _draw_win_screen(self):
