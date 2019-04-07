@@ -8,12 +8,12 @@ BUILD_SCREEN = 1
 GAME_SCREEN = 2
 WIN_SCREEN = 3
 LOSE_SCREEN = 4
-LOADING_SCREEN = 5
 
 ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
 ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
 
 white = (255,255,255)
+black = (0,0,0)
 
 class SurvivalGame:
 
@@ -32,7 +32,7 @@ class SurvivalGame:
                 
             elif self._mode == BUILD_SCREEN:
                 surface = pygame.display.get_surface()
-                surface.fill((0,0,0))
+                surface.fill(black)
                 self._draw_build_screen()
                 
             elif self._mode == GAME_SCREEN:
@@ -133,18 +133,6 @@ class SurvivalGame:
         next_text = font.render("Next", True, white)
         pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (400,650,400,100))
         surface.blit(next_text, (400,650))
-        
-        # Draw narration box and text
-
-        # When the animal is first placed into the game, check if animal will survive
-        # but dont show changes until next click
-            
-          
-#         else:
-#             if self._environment <= len(self._environments) - 2:
-#                 pass
-#             elif self._environment == len(self._environments) - 1:
-#                 self._mode = WIN_SCREEN 
                 
                 
     def _draw_game_over_screen(self):
@@ -168,13 +156,12 @@ class SurvivalGame:
         font = pygame.font.Font(None, 100)
         start_over = font.render("Start Over", True, white)
         surface.blit(start_over, (400-start_over.get_width()/2,620))
-        
     
     
     def _draw_start_screen(self):
         self._setup_game()
         surface = pygame.display.get_surface()
-        surface.fill((0,0,0))
+        surface.fill(black)
 
         font = pygame.font.Font(None, 100)
         start_text = font.render("Start", True, white)
@@ -238,7 +225,7 @@ class SurvivalGame:
                     
     def _draw_win_screen(self):
         surface = pygame.display.get_surface()
-        surface.fill((0,0,0))
+        surface.fill(black)
         
         self._draw_hp_bar()
         
@@ -257,14 +244,9 @@ class SurvivalGame:
         
                               
     def _change_feature(self, feature: str):
-        if self._feature == 0:
-            self._animal.change_skin(feature)
-        elif self._feature == 1:
-            self._animal.change_diet(feature)
-        elif self._feature == 2:
-            self._animal.change_move(feature)
-        else:
-            self._animal.change_breath(feature)
+        change = [self._animal.change_skin, self._animal.change_diet,
+                  self._animal.change_move, self._animal.change_breath]
+        change[self._feature](feature)
         
         
     def _draw_hp_bar (self):
@@ -281,7 +263,7 @@ class SurvivalGame:
                 pygame.draw.rect(surface, pygame.color.Color(colors[i]), (150+50*i,50,50,40))
                 
         font = pygame.font.Font(None, 70)
-        hp = font.render("HP", True, (0,0,0))
+        hp = font.render("HP", True, black)
         surface.blit(hp, (360,0))
         
         
@@ -302,7 +284,7 @@ class SurvivalGame:
     def _setup_game(self):
         self._feature = 0
         self._next_game_screen = False
-        self._environments = aa.ENVIRONMENTS[:4]
+        self._environments = aa.ENVIRONMENTS[:-1]
         self._before_enviro = True
         random.shuffle(self._environments)
         self._environment = 0
