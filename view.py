@@ -42,7 +42,7 @@ class SurvivalGame:
                 self._draw_game_screen()
                    
             elif self._mode == LOSE_SCREEN:
-                self._game_over()
+                self._draw_game_over_screen()
                 
             elif self._mode == WIN_SCREEN:
                 self._draw_win_screen()
@@ -65,6 +65,52 @@ class SurvivalGame:
                 self._running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._handle_click()
+                
+                
+    def _handle_click(self):
+        cursor_x, cursor_y = pygame.mouse.get_pos()
+        
+        if self._mode == START_SCREEN:
+            if cursor_x >= 200 and cursor_x <= 600 \
+            and cursor_y >= 500 and cursor_y <= 600:
+                self._mode = BUILD_SCREEN
+                
+        elif self._mode == BUILD_SCREEN:
+            # left button
+            if self._feature != 0 and \
+            cursor_x >= 100 and cursor_x <= 140 \
+            and cursor_y >= 110 and cursor_y <= 150:
+                self._feature -= 1
+                
+            # right button
+            elif self._feature != 3 and \
+            cursor_x >= 660 and cursor_x <= 700 \
+            and cursor_y >= 110 and cursor_y <= 150:
+                self._feature += 1
+                
+            elif cursor_x >= 250 and cursor_x <= 550 \
+            and cursor_y >= 700 and cursor_y <= 760:
+                self._mode = GAME_SCREEN
+                
+            y_pos = 100
+            for ft in ATTRIBUTES[self._feature].keys():
+                y_pos += 85
+                if cursor_x >= 200 and cursor_x <= 600 \
+                and cursor_y >= y_pos and cursor_y <= y_pos + 65:
+                    self._change_feature(ft)
+        
+        # 400,650,400,100
+        elif self._mode == GAME_SCREEN:
+            if self._feature != 0 and \
+            cursor_x >= 400 and cursor_x <= 800 \
+            and cursor_y >= 650 and cursor_y <= 750:
+                self._next_game_screen = True
+                
+        # (200,600,400,100)
+        elif self._mode == LOSE_SCREEN:
+            if cursor_x >= 200 and cursor_x <= 600 \
+            and cursor_y >= 600 and cursor_y <= 700:
+                self._mode = START_SCREEN
                 
                 
     def _draw_game_screen(self):
@@ -96,7 +142,7 @@ class SurvivalGame:
             self._next_game_screen = False
                 
                 
-    def _game_over(self):
+    def _draw_game_over_screen(self):
         self._draw_environment()
         self._add_dark_overlay()
         surface = pygame.display.get_surface()
@@ -183,52 +229,6 @@ class SurvivalGame:
         done = font.render("Done", True, white)
         pygame.draw.rect(surface, pygame.color.Color("#DD2222"), (250,700,300,60) )
         surface.blit(done, (400-done.get_width()/2,705))
-
-
-    def _handle_click(self):
-        cursor_x, cursor_y = pygame.mouse.get_pos()
-        
-        if self._mode == START_SCREEN:
-            if cursor_x >= 200 and cursor_x <= 600 \
-            and cursor_y >= 500 and cursor_y <= 600:
-                self._mode = BUILD_SCREEN
-                
-        elif self._mode == BUILD_SCREEN:
-            # left button
-            if self._feature != 0 and \
-            cursor_x >= 100 and cursor_x <= 140 \
-            and cursor_y >= 110 and cursor_y <= 150:
-                self._feature -= 1
-                
-            # right button
-            elif self._feature != 3 and \
-            cursor_x >= 660 and cursor_x <= 700 \
-            and cursor_y >= 110 and cursor_y <= 150:
-                self._feature += 1
-                
-            elif cursor_x >= 250 and cursor_x <= 550 \
-            and cursor_y >= 700 and cursor_y <= 760:
-                self._mode = GAME_SCREEN
-                
-            y_pos = 100
-            for ft in ATTRIBUTES[self._feature].keys():
-                y_pos += 85
-                if cursor_x >= 200 and cursor_x <= 600 \
-                and cursor_y >= y_pos and cursor_y <= y_pos + 65:
-                    self._change_feature(ft)
-        
-        # 400,650,400,100
-        elif self._mode == GAME_SCREEN:
-            if self._feature != 0 and \
-            cursor_x >= 400 and cursor_x <= 800 \
-            and cursor_y >= 650 and cursor_y <= 750:
-                self._next_game_screen = True
-                
-        # (200,600,400,100)
-        elif self._mode == LOSE_SCREEN:
-            if cursor_x >= 200 and cursor_x <= 600 \
-            and cursor_y >= 600 and cursor_y <= 700:
-                self._mode = START_SCREEN
                     
                     
     def _draw_win_screen(self):
@@ -250,8 +250,7 @@ class SurvivalGame:
         surface.blit(text3, (400-text3.get_width()/2,400))
         surface.blit(text4, (400-text4.get_width()/2,500))
         
-                     
-                    
+                              
     def _change_feature(self, feature: str):
         if self._feature == 0:
             self._animal.change_skin(feature)
