@@ -103,11 +103,12 @@ class SurvivalGame:
                 if not self._animal.is_alive():
                     self._mode = LOSE_SCREEN
                 elif self._environment <= len(self._environments) - 2:
-                    if self._first_stage:
-                        self._first_stage = False
+                    if self._before_enviro:
+                        self._before_enviro = False
+                        self._animal.will_survive(self._environments[self._environment])
                     else:
                         self._environment += 1
-                    self._animal.will_survive(self._environments[self._environment])
+                        self._before_enviro = True
                 else:
                     self._animal.will_survive(self._environments[self._environment])
                     if self._animal.is_alive():
@@ -302,7 +303,7 @@ class SurvivalGame:
         self._feature = 0
         self._next_game_screen = False
         self._environments = aa.ENVIRONMENTS[:4]
-        self._first_stage = True
+        self._before_enviro = True
         random.shuffle(self._environments)
         self._environment = 0
         self._animal = Animal(None, None, None, None)

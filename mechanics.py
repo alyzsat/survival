@@ -49,9 +49,7 @@ class Animal:
                 self.hp = 0
         
     def is_alive (self):
-        if self.hp<=0:
-            return False
-        return True
+        return self.hp > 0
     
     def change_skin(self, newS):
         self.skin = newS
