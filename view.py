@@ -19,8 +19,8 @@ black = (0,0,0)
 class SurvivalGame:
 
     def __init__(self):
-        pygame.display.set_caption("Survival of the Fittest")
-        pygame.display.set_icon(pygame.image.load('thumbnail.png'))
+        pygame.display.set_caption("Survival of the Fittest", 'backgrounds/default.png')
+        pygame.display.set_icon(pygame.image.load('backgrounds/default.png'))
         self._running = True
         self._mode = START_SCREEN
         
@@ -207,8 +207,10 @@ class SurvivalGame:
         
         
     def _draw_build_screen(self):
-        self._draw_default_background()
         surface = pygame.display.get_surface()
+        img = pygame.image.load("backgrounds/build.png")
+        surface.blit(img, (0,0))
+
         font = pygame.font.Font(None, 100)
         
         title = font.render(ANAMES[self._feature], True, white)
@@ -229,7 +231,7 @@ class SurvivalGame:
             
         x_pos = 50
         y_pos = 100
-        font = pygame.font.Font(None, 70)
+        font = pygame.font.Font(None, 65)
         for ft in ATTRIBUTES[self._feature].keys():
             y_pos += 85
             
@@ -245,10 +247,13 @@ class SurvivalGame:
             pygame.draw.rect(surface,  pygame.color.Color(color), (x_pos,y_pos,300,65))
             text = font.render(ft.capitalize(), True, white)
             surface.blit(text,(200-text.get_width()/2,y_pos+10))
+            
+        img = pygame.image.load(f"animal/{self._animal.color}.png")
+        surface.blit(pygame.transform.scale(img, (300,300)), (450,250))
         
         done = font.render("Done", True, white)
-        pygame.draw.rect(surface, pygame.color.Color("#DD2222"), (250,700,300,60) )
-        surface.blit(done, (400-done.get_width()/2,705))
+        pygame.draw.rect(surface, pygame.color.Color("#444444"), (250,700,300,60) )
+        surface.blit(done, (400-done.get_width()/2,710))
                     
                     
     def _draw_win_screen(self):
