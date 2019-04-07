@@ -196,18 +196,20 @@ class SurvivalGame:
         font = pygame.font.Font(None, 100)
         start_text = font.render("Start", True, white)
         # Draws the start button
-        pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
-
+#         pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
+        img = pygame.image.load(f"backgrounds/dark_overlay.png")
+        surface.blit(pygame.transform.scale(img, (400,100)), (200,500))
+        surface.blit(pygame.transform.scale(img, (400,100)), (200,500))
         surface.blit(start_text, (320,520))
 
-        font = pygame.font.Font(None, 180)
+        font = pygame.font.Font(None, 140)
         title1 = font.render("Survival", True, white)
         title2 = font.render("of the", True, white)
         title3 = font.render("Fittest", True, white)
 
-        surface.blit(title1, (150,100))
-        surface.blit(title2, (230,220))
-        surface.blit(title3, (200,340))
+        surface.blit(title1, (400-title1.get_width()/2,60))
+        surface.blit(title2, (400-title2.get_width()/2,160))
+        surface.blit(title3, (400-title3.get_width()/2,260))
         
         
     def _draw_build_screen(self):
