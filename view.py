@@ -19,7 +19,7 @@ class SurvivalGame:
         self._running = True
         self._mode = START_SCREEN
         self._feature = 0
-        self._environment = "desert"
+        self._environment = "grassland"
         self._animal = Animal(None, None, None, None)
 
 
@@ -84,15 +84,23 @@ class SurvivalGame:
         title = font.render(ANAMES[self._feature], True, white)
         surface.blit(title, (400-title.get_width()/2,100))
         
+        font = pygame.font.Font(None, 50)
         # Left button
-        pygame.draw.polygon(surface, white, [(100,130), (140,110), (140,150)])
+        if self._feature != 0:
+            prev = font.render("Prev", True, white)
+            surface.blit(prev, (85,70))
+            pygame.draw.polygon(surface, white, [(100,130), (140,110), (140,150)])
+            
         # Right button
-        pygame.draw.polygon(surface, white, [(700,130), (660,110), (660,150)])
+        if self._feature != 3:
+            next = font.render("Next", True, white)
+            surface.blit(next, (645,70))
+            pygame.draw.polygon(surface, white, [(700,130), (660,110), (660,150)])
+            
         x_pos = 200
         y_pos = 100
-        
+        font = pygame.font.Font(None, 70)
         for ft in ATTRIBUTES[self._feature].keys():
-            font = pygame.font.Font(None, 70)
             y_pos += 85
             pygame.draw.rect(surface,  pygame.color.Color("#60cadb"), (x_pos,y_pos,400,65))
             text = font.render(ft.capitalize(), True, white)
@@ -135,8 +143,7 @@ class SurvivalGame:
                 if cursor_x >= 200 and cursor_x <= 600 \
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
-                
-                    
+                     
                     
     def _change_feature(self, feature: str):
         if self._feature == 0:
