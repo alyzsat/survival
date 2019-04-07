@@ -158,26 +158,20 @@ class SurvivalGame:
         
     def _draw_hp_bar (self, hp):
         surface = pygame.display.get_surface()
-        if hp>=10:
-            pygame.draw.rect(surface, pygame.color.Color("#890000"), (15,15,50,40))
-        if hp>=20:
-            pygame.draw.rect(surface, pygame.color.Color("#ad0000"), (65,15,50,40))
-        if hp>=30:
-            pygame.draw.rect(surface, pygame.color.Color("#db0000"), (115,15,50,40))
-        if hp>=40:
-            pygame.draw.rect(surface, pygame.color.Color("#e57002"), (165,15,50,40))
-        if hp>=50:
-            pygame.draw.rect(surface, pygame.color.Color("#e5b002"), (215,15,50,40))
-        if hp>=60:
-            pygame.draw.rect(surface, pygame.color.Color("#efe702"), (265,15,50,40))
-        if hp>=70:
-            pygame.draw.rect(surface, pygame.color.Color("#bbef02"), (315,15,50,40))
-        if hp>=80:
-            pygame.draw.rect(surface, pygame.color.Color("#88ef02"), (365,15,50,40))
-        if hp>=90:
-            pygame.draw.rect(surface, pygame.color.Color("#40e214"), (415,15,50,40))
-        if hp>=100:
-            pygame.draw.rect(surface, pygame.color.Color("#20c40d"), (465,15,50,40))
+        
+        surface = pygame.display.get_surface()
+        pygame.draw.rect(surface, pygame.color.Color("#000000"), (145,45,510,50))
+        
+        colors = ["#890000", "#ad0000", "#db0000","#e57002", "#e5b002",
+                  "#efe702", "#bbef02", "#88ef02", "#40e214", "#20c40d"]
+        
+        for i in range(len(colors)):
+            if hp >= (i + 1) * 10:
+                pygame.draw.rect(surface, pygame.color.Color(colors[i]), (150+50*i,50,50,40))
+                
+        font = pygame.font.Font(None, 70)
+        hp = font.render("HP", True, (0,0,0))
+        surface.blit(hp, (360,0))
         
         
     def _draw_environment(self):
@@ -186,11 +180,10 @@ class SurvivalGame:
         
         img = pygame.image.load(f"{self._environment}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
-        
-        surface = pygame.display.get_surface()
-        pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-            
+         
         self._draw_hp_bar(self._animal.hp)
+        
+        
     
 
 SurvivalGame().run()
