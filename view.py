@@ -35,9 +35,6 @@ class SurvivalGame:
                 surface.fill((0,0,0))
                 self._draw_build_screen()
                 
-            elif self._mode == LOADING_SCREEN:
-                self._draw_loading_screen()
-                
             elif self._mode == GAME_SCREEN:
                 self._draw_game_screen()
                    
@@ -101,10 +98,24 @@ class SurvivalGame:
         
         # 400,650,400,100
         elif self._mode == GAME_SCREEN:
-            if self._feature != 0 and \
-            cursor_x >= 400 and cursor_x <= 800 \
+            if cursor_x >= 400 and cursor_x <= 800 \
             and cursor_y >= 650 and cursor_y <= 750:
-                self._next_game_screen = True
+                if not self._animal.is_alive():
+                    self._mode = LOSE_SCREEN
+                elif self._environment <= len(self._environments) - 2:
+                    if self._first_stage:
+                        self._first_stage = False
+                    else:
+                        self._environment += 1
+                    self._animal.will_survive(self._environments[self._environment])
+                else:
+                    self._animal.will_survive(self._environments[self._environment])
+                    if self._animal.is_alive():
+                        self._mode = WIN_SCREEN
+                    else:
+                        self._mode = LOSE_SCREEN
+                    
+                    
                 
         # (200,600,400,100)
         elif self._mode == LOSE_SCREEN:
@@ -117,29 +128,22 @@ class SurvivalGame:
         self._draw_environment()
         surface = pygame.display.get_surface()
         
-        attributes = [self._animal.skin, self._animal.move, self._animal.breath, self._animal.diet]
-        
-        for att in attributes:
-            if att == None:
-                self._animal.kill()
-        
         font = pygame.font.Font(None, 70)
         next_text = font.render("Next", True, white)
         pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (400,650,400,100))
         surface.blit(next_text, (400,650))
-
-        enviro = self._environments[self._environment]
-        if not self._animal.is_alive():
-            self._mode = LOSE_SCREEN
         
-        if self._next_game_screen and self._animal.is_alive():
-            if self._environment <= len(self._environments) - 2:
-                self._environment += 1
-                self._animal.will_survive(enviro)
-            elif self._environment == len(self._environments) - 1:
-                self._animal.will_survive(enviro)
-                self._mode = WIN_SCREEN
-            self._next_game_screen = False
+        # Draw narration box and text
+
+        # When the animal is first placed into the game, check if animal will survive
+        # but dont show changes until next click
+            
+          
+#         else:
+#             if self._environment <= len(self._environments) - 2:
+#                 pass
+#             elif self._environment == len(self._environments) - 1:
+#                 self._mode = WIN_SCREEN 
                 
                 
     def _draw_game_over_screen(self):
@@ -298,6 +302,7 @@ class SurvivalGame:
         self._feature = 0
         self._next_game_screen = False
         self._environments = aa.ENVIRONMENTS[:4]
+        self._first_stage = True
         random.shuffle(self._environments)
         self._environment = 0
         self._animal = Animal(None, None, None, None)

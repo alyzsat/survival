@@ -27,18 +27,26 @@ class Animal:
         self.move = m 
         self.breath = b 
         self.hp = 100
+        
+        
     #adjust the hp, enviro is str
     #func changes the hp
     def will_survive (self, enviro):
-        self.hp += SKIN [self.skin] [enviro]
-        self.hp += DIET [self.diet] [enviro]
-#        self.hp += LIMBS [self.limbs] [enviro]
-        self.hp += MOVE [self.move] [enviro]
-        self.hp += BREATH [self.breath] [enviro]
-        if self.hp > 100:
-            self.hp = 100
-        elif self.hp < 0:
-            self.hp = 0
+        attributes = [self.skin, self.move, self.breath, self.diet]
+        for att in attributes:
+            if att == None:
+                self.kill()
+                
+        if self.is_alive():
+            self.hp += SKIN [self.skin] [enviro]
+            self.hp += DIET [self.diet] [enviro]
+    #        self.hp += LIMBS [self.limbs] [enviro]
+            self.hp += MOVE [self.move] [enviro]
+            self.hp += BREATH [self.breath] [enviro]
+            if self.hp > 100:
+                self.hp = 100
+            elif self.hp < 0:
+                self.hp = 0
         
     def is_alive (self):
         if self.hp<=0:
