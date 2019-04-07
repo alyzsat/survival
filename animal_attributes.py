@@ -4,7 +4,6 @@ tundra, space, rainforest
 desert, grassland, jungle, ocean, rainforest, space, tundra
 '''
 
-INSTANT_DEATH = -100
 DEATH = -50
 POOR = -20
 NEUTRAL = 0

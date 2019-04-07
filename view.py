@@ -10,8 +10,8 @@ GAME_SCREEN = 2
 WIN_SCREEN = 3
 LOSE_SCREEN = 4
 
-ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
-ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
+ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH, aa.COLOR]
+ANAMES = ["Skin", "Diet", "Movement", "Breathing", "Color"]
 
 white = (255,255,255)
 black = (0,0,0)
@@ -235,7 +235,8 @@ class SurvivalGame:
             if self._animal.breath == ft \
             or self._animal.diet == ft \
             or self._animal.skin == ft \
-            or self._animal.move == ft:
+            or self._animal.move == ft \
+            or self._animal.color:
                 color = "#5392d6"
             else:
                 color = "#60dbec"
@@ -270,7 +271,8 @@ class SurvivalGame:
                               
     def _change_feature(self, feature: str):
         change = [self._animal.change_skin, self._animal.change_diet,
-                  self._animal.change_move, self._animal.change_breath]
+                  self._animal.change_move, self._animal.change_breath,
+                  self._animal.change_color]
         change[self._feature](feature)
         
         
@@ -321,7 +323,7 @@ class SurvivalGame:
         self._environment = 0
         self._last_known_health = 100
         self._write_intro_sentence()
-        self._animal = Animal(None, None, None, None)
+        self._animal = Animal(None, None, None, None, "gray")
         
         
     def _write_intro_sentence(self):
@@ -330,8 +332,8 @@ class SurvivalGame:
     
     
     def _write_enviro_sentence(self):
-        attributes = [self._animal.skin, self._animal.diet, self._animal.move, self._animal.breath]
-        a_names = ["skin", "diet","move", "breath"]
+        attributes = [self._animal.skin, self._animal.diet, self._animal.move, self._animal.breath, self._animal.color]
+        a_names = ["skin", "diet","move", "breath", "color"]
         
         no_feature = False
         for i in range(len(attributes)):
