@@ -6,8 +6,8 @@ import random
 START_SCREEN = 0
 BUILD_SCREEN = 1
 GAME_SCREEN = 2
-LOSE_SCREEN = 3
-WIN_SCREEN = 4
+WIN_SCREEN = 3
+LOSE_SCREEN = 4
 
 ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
 ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
@@ -24,6 +24,7 @@ class SurvivalGame:
         self._environment = None #"desert" #Does this need to be changed later?
         self._animal = Animal(None, None, None, None) #Kill the game if user does not select all the animal attributes
         random.shuffle (aa.ENVIRONMENTS)
+        
 
     def run(self):
         pygame.init()
@@ -49,7 +50,12 @@ class SurvivalGame:
                 #something goes here
                 pass
                 
+            elif self._mode == WIN_SCREEN:
+                self._draw_win_screen()
+                
             else:
+                # If something goes wrong and we bring up a screen that we don't have,
+                # display this
                 surface = pygame.display.get_surface()
                 surface.fill(white)
 
@@ -123,17 +129,34 @@ class SurvivalGame:
         title = font.render(ANAMES[self._feature], True, white)
         surface.blit(title, (400-title.get_width()/2,100))
         
+        font = pygame.font.Font(None, 50)
         # Left button
-        pygame.draw.polygon(surface, white, [(100,130), (140,110), (140,150)])
+        if self._feature != 0:
+            prev = font.render("Prev", True, white)
+            surface.blit(prev, (85,70))
+            pygame.draw.polygon(surface, white, [(100,130), (140,110), (140,150)])
+            
         # Right button
-        pygame.draw.polygon(surface, white, [(700,130), (660,110), (660,150)])
+        if self._feature != 3:
+            next = font.render("Next", True, white)
+            surface.blit(next, (645,70))
+            pygame.draw.polygon(surface, white, [(700,130), (660,110), (660,150)])
+            
         x_pos = 200
         y_pos = 100
-        
+        font = pygame.font.Font(None, 70)
         for ft in ATTRIBUTES[self._feature].keys():
-            font = pygame.font.Font(None, 70)
             y_pos += 85
-            pygame.draw.rect(surface,  pygame.color.Color("#60cadb"), (x_pos,y_pos,400,65))
+            
+            if self._animal.breath == ft \
+            or self._animal.diet == ft \
+            or self._animal.skin == ft \
+            or self._animal.move == ft:
+                color = "#5392d6"
+            else:
+                color = "#60dbec"
+                
+            pygame.draw.rect(surface,  pygame.color.Color(color), (x_pos,y_pos,400,65))
             text = font.render(ft.capitalize(), True, white)
             surface.blit(text,(400-text.get_width()/2,y_pos+10))
         
@@ -174,8 +197,28 @@ class SurvivalGame:
                 if cursor_x >= 200 and cursor_x <= 600 \
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
-                
                     
+                    
+    def _draw_win_screen(self):
+        surface = pygame.display.get_surface()
+        surface.fill((0,0,0))
+        
+        self._draw_hp_bar(self._animal.hp)
+        
+        font = pygame.font.Font(None,90)
+        text1 = font.render("You have survived!", True, white)
+        text2 = font.render("Your animal is superior!", True, white)
+        text3 = font.render("Your score is", True, white)
+        
+        font = pygame.font.Font(None,150)
+        text4 = font.render(str(self._animal.hp), True, white)
+        
+        surface.blit(text1, (400-text1.get_width()/2,200))
+        surface.blit(text2, (400-text2.get_width()/2,300))
+        surface.blit(text3, (400-text3.get_width()/2,400))
+        surface.blit(text4, (400-text4.get_width()/2,500))
+        
+                     
                     
     def _change_feature(self, feature: str):
         if self._feature == 0:
@@ -190,40 +233,30 @@ class SurvivalGame:
         
     def _draw_hp_bar (self, hp):
         surface = pygame.display.get_surface()
-        if hp>=10:
-            pygame.draw.rect(surface, pygame.color.Color("#890000"), (15,15,50,40))
-        if hp>=20:
-            pygame.draw.rect(surface, pygame.color.Color("#ad0000"), (65,15,50,40))
-        if hp>=30:
-            pygame.draw.rect(surface, pygame.color.Color("#db0000"), (115,15,50,40))
-        if hp>=40:
-            pygame.draw.rect(surface, pygame.color.Color("#e57002"), (165,15,50,40))
-        if hp>=50:
-            pygame.draw.rect(surface, pygame.color.Color("#e5b002"), (215,15,50,40))
-        if hp>=60:
-            pygame.draw.rect(surface, pygame.color.Color("#efe702"), (265,15,50,40))
-        if hp>=70:
-            pygame.draw.rect(surface, pygame.color.Color("#bbef02"), (315,15,50,40))
-        if hp>=80:
-            pygame.draw.rect(surface, pygame.color.Color("#88ef02"), (365,15,50,40))
-        if hp>=90:
-            pygame.draw.rect(surface, pygame.color.Color("#40e214"), (415,15,50,40))
-        if hp>=100:
-            pygame.draw.rect(surface, pygame.color.Color("#20c40d"), (465,15,50,40))
+        
+        surface = pygame.display.get_surface()
+        pygame.draw.rect(surface, pygame.color.Color("#000000"), (145,45,510,50))
+        
+        colors = ["#890000", "#ad0000", "#db0000","#e57002", "#e5b002",
+                  "#efe702", "#bbef02", "#88ef02", "#40e214", "#20c40d"]
+        
+        for i in range(len(colors)):
+            if hp >= (i + 1) * 10:
+                pygame.draw.rect(surface, pygame.color.Color(colors[i]), (150+50*i,50,50,40))
+                
+        font = pygame.font.Font(None, 70)
+        hp = font.render("HP", True, (0,0,0))
+        surface.blit(hp, (360,0))
         
         
     def _draw_environment(self):
         screen = pygame.display.get_surface()
-      #  screen.fill(white)
-        
         img = pygame.image.load(f"{self._environment}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         
         surface = pygame.display.get_surface()
         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-     #   pygame.draw.rect(surface, pygame.color.Color(white), Rect, width=0)
-            
-   #     self._draw_hp_bar(self._animal.hp)
+
     
 
 SurvivalGame().run()
