@@ -148,27 +148,6 @@ class SurvivalGame:
         else:
             self._animal.change_breath(feature)
         
-        print("----------------------------")
-        print(f"Skin: {self._animal.skin}")
-        print(f"Diet: {self._animal.diet}")
-        print(f"Move: {self._animal.move}")
-        print(f"Breath: {self._animal.breath}")
-                
-            
-            
-        
-
-
-
-    def _select_choices(self):
-
-        pygame.display.set_mode((800, 800))
-        surface = pygame.display.get_surface()
-        skinList = pygame.draw.rect(surface, pygame.color.Color("#ffdd7f"), (45,45,200,500))
-
-        font = pygame.font.Font(None, 200)
-        n = font.render("text", False , (255,255,255))
-        
         
     def _draw_hp_bar (self, hp):
         surface = pygame.display.get_surface()
@@ -194,143 +173,17 @@ class SurvivalGame:
             pygame.draw.rect(surface, pygame.color.Color("#20c40d"), (465,15,50,40))
         
         
-#     def _draw_desert (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#         
-#        # pygame.display.set_mode((800, 800))
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#         
-#         self._draw_hp_bar(self._animal.hp)
-        
-        
     def _draw_environment(self):
         screen = pygame.display.get_surface()
         screen.fill(white)
         
         img = pygame.image.load(f"{self._environment}.png")
-        
-        screen.blit(img,(0,0))
+        screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         
         surface = pygame.display.get_surface()
         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
             
         self._draw_hp_bar(self._animal.hp)
     
-#     def _draw_jungle (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with jungle image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#         
-#         
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)
-#         
-#     def _draw_ocean (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with ocean image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#                 
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)
-#     
-#     def _draw_forest (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with forest image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#                 
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)  
-#         
-#     
-#     def _draw_tundra (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with tundra image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#                 
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)
-#         
-#     
-#     def _draw_arctic (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with arctic image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#         
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)
-#         
-#     
-#     def _draw_space (self):
-#         
-#         screen = pygame.display.set_mode((800,800))
-#         screen.fill(white)
-#         #fill in with space image
-#         
-#         img = pygame.image.load("download.png")
-#         
-#         screen.blit(img,(0,0))
-#                 
-#         surface = pygame.display.get_surface()
-#         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
-#        
-#         
-#         self._draw_hp_bar(self._animal.hp)
-#         
-#         
-#         pygame.display.set_mode((800, 800))
-#         
-#         surface = pygame.Surface((100,100))
-#         image = pygame.image.load("download.png") 
-#         surface = pygame.Surface(image)
-       # asurf = pygame.image.load(('data', 'download.png'))
-
-    
-
 
 SurvivalGame().run()
