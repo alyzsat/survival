@@ -158,6 +158,10 @@ class SurvivalGame:
             else:
                 narration = font.render(f"{self._sentence}", True, white)
                 surface.blit(narration, (120,280))
+                
+        img = pygame.image.load(f"animal/{self._animal.color}.png")
+        img = pygame.transform.scale(img, (100,100))
+        surface.blit(img, (400-img.get_width()/2,120))
             
         
                 
@@ -211,7 +215,7 @@ class SurvivalGame:
         img = pygame.image.load("backgrounds/build.png")
         surface.blit(img, (0,0))
 
-        font = pygame.font.Font(None, 100)
+        font = pygame.font.Font(None, 90)
         
         title = font.render(ANAMES[self._feature], True, white)
         surface.blit(title, (400-title.get_width()/2,100))

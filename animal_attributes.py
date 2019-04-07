@@ -28,11 +28,11 @@ DIET = {'carnivore':{'arctic':FAIR,'desert':NEUTRAL, 'grassland':NEUTRAL, 'jungl
         }
 
 
-MOVE = {'running': {'arctic': FAIR,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': NEUTRAL, 'ocean': DEATH, 'forest': EXCEPTIONAL,'tundra': FAIR},
-        'jumping':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': POOR,'tundra': POOR},
-        'climbing':{'arctic': DEATH,'desert': DEATH, 'grassland': DEATH, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': FAIR,'tundra': DEATH},
-        'flying':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': FAIR, 'jungle': EXCEPTIONAL, 'ocean': NEUTRAL, 'forest': EXCEPTIONAL,'tundra': NEUTRAL},
-        'swimming':{'arctic': DEATH,'desert': DEATH , 'grassland': DEATH, 'jungle': NEUTRAL, 'ocean': EXCEPTIONAL, 'forest': DEATH,'tundra':DEATH}
+MOVE = {'two legs': {'arctic': POOR,'desert': NEUTRAL, 'grassland': EXCEPTIONAL, 'jungle': POOR, 'ocean': DEATH, 'forest': FAIR, 'tundra': NEUTRAL},
+        'four legs':{'arctic': NEUTRAL,'desert': NEUTRAL, 'grassland': EXCEPTIONAL, 'jungle': NEUTRAL, 'ocean': POOR, 'forest': EXCEPTIONAL,'tundra': FAIR},
+        'climbing':{'arctic': NEUTRAL,'desert': POOR, 'grassland': POOR, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': FAIR, 'tundra': DEATH},
+        'wings':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': FAIR, 'jungle': EXCEPTIONAL, 'ocean': POOR, 'forest': EXCEPTIONAL,'tundra': NEUTRAL},
+        'flippers':{'arctic': FAIR,'desert': DEATH , 'grassland': DEATH, 'jungle': POOR, 'ocean': EXCEPTIONAL, 'forest': DEATH,'tundra':DEATH}
         }
 
 BREATH = {'lungs':{'arctic':NEUTRAL,'desert':NEUTRAL , 'grassland':NEUTRAL, 'jungle':NEUTRAL, 'ocean': DEATH, 'forest':NEUTRAL,'tundra':NEUTRAL},
