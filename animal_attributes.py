@@ -4,6 +4,7 @@ tundra, space, rainforest
 desert, grassland, jungle, ocean, rainforest, space, tundra
 '''
 
+INSTANT_DEATH = -100
 DEATH = -50
 POOR = -20
 NEUTRAL = 0
@@ -12,7 +13,7 @@ EXCEPTIONAL = 50
 
 ENVIRONMENTS = ['desert', 'grassland', 'jungle', 'ocean', 'forest', 'tundra', 'arctic']
 
-SKIN = {'fur': {'arctic': EXCEPTIONAL, 'desert': NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL, 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra':EXCEPTIONAL },
+SKIN = {'fur': {'arctic': EXCEPTIONAL, 'desert': NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL, 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra':EXCEPTIONAL},
         'feather': {'arctic': FAIR,'desert':NEUTRAL, 'grassland': NEUTRAL, 'jungle': NEUTRAL , 'ocean': NEUTRAL, 'forest': NEUTRAL,'tundra': NEUTRAL},
         'dry skin': {'arctic': DEATH,'desert': POOR, 'grassland':FAIR, 'jungle':POOR, 'ocean':POOR, 'forest':POOR,'tundra':DEATH},
         'wet skin': {'arctic': DEATH,'desert':DEATH, 'grassland':DEATH, 'jungle': EXCEPTIONAL, 'ocean': FAIR, 'forest': POOR,'tundra':DEATH},
