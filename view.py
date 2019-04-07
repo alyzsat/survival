@@ -20,6 +20,7 @@ class SurvivalGame:
 
     def __init__(self):
         pygame.display.set_caption("Survival of the Fittest")
+        pygame.display.set_icon(pygame.image.load('thumbnail.png'))
         self._running = True
         self._mode = START_SCREEN
         
@@ -81,7 +82,7 @@ class SurvivalGame:
                 self._feature -= 1
                 
             # right button
-            elif self._feature != 3 and \
+            elif self._feature != len(ATTRIBUTES) - 1 and \
             cursor_x >= 660 and cursor_x <= 700 \
             and cursor_y >= 110 and cursor_y <= 150:
                 self._feature += 1
@@ -93,7 +94,7 @@ class SurvivalGame:
             y_pos = 100
             for ft in ATTRIBUTES[self._feature].keys():
                 y_pos += 85
-                if cursor_x >= 200 and cursor_x <= 600 \
+                if cursor_x >= 50 and cursor_x <= 350 \
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
         
@@ -166,7 +167,7 @@ class SurvivalGame:
         surface = pygame.display.get_surface()
 
         font = pygame.font.Font(None, 100)
-        gameOver = font.render("Game Over :(", True, white)
+        gameOver = font.render("Try again :(", True, white)
         font = pygame.font.Font(None, 60)
         gameOver1 = font.render("Your animal wasn't fit enough", True, white)
         gameOver2 = font.render("Health Dropped Down To", True, white)
@@ -221,12 +222,12 @@ class SurvivalGame:
             pygame.draw.polygon(surface, white, [(100,130), (140,110), (140,150)])
             
         # Right button
-        if self._feature != 3:
+        if self._feature != len(ATTRIBUTES) - 1:
             next = font.render("Next", True, white)
             surface.blit(next, (645,70))
             pygame.draw.polygon(surface, white, [(700,130), (660,110), (660,150)])
             
-        x_pos = 200
+        x_pos = 50
         y_pos = 100
         font = pygame.font.Font(None, 70)
         for ft in ATTRIBUTES[self._feature].keys():
@@ -236,14 +237,14 @@ class SurvivalGame:
             or self._animal.diet == ft \
             or self._animal.skin == ft \
             or self._animal.move == ft \
-            or self._animal.color:
+            or self._animal.color == ft:
                 color = "#5392d6"
             else:
                 color = "#60dbec"
                 
-            pygame.draw.rect(surface,  pygame.color.Color(color), (x_pos,y_pos,400,65))
+            pygame.draw.rect(surface,  pygame.color.Color(color), (x_pos,y_pos,300,65))
             text = font.render(ft.capitalize(), True, white)
-            surface.blit(text,(400-text.get_width()/2,y_pos+10))
+            surface.blit(text,(200-text.get_width()/2,y_pos+10))
         
         done = font.render("Done", True, white)
         pygame.draw.rect(surface, pygame.color.Color("#DD2222"), (250,700,300,60) )
@@ -323,7 +324,7 @@ class SurvivalGame:
         self._environment = 0
         self._last_known_health = 100
         self._write_intro_sentence()
-        self._animal = Animal(None, None, None, None, "gray")
+        self._animal = Animal(None, None, None, None, "brown")
         
         
     def _write_intro_sentence(self):
