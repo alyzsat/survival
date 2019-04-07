@@ -284,7 +284,7 @@ class SurvivalGame:
     def _setup_game(self):
         self._feature = 0
         self._next_game_screen = False
-        self._environments = aa.ENVIRONMENTS[:-1]
+        self._environments = aa.ENVIRONMENTS
         self._before_enviro = True
         random.shuffle(self._environments)
         self._environment = 0
