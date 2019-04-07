@@ -4,6 +4,7 @@ tundra, space, rainforest
 desert, grassland, jungle, ocean, rainforest, space, tundra
 '''
 
+INSTANT_DEATH = -100
 DEATH = -50
 POOR = -20
 NEUTRAL = 0
@@ -31,7 +32,7 @@ MOVE = {'running': {'arctic': FAIR,'desert': FAIR, 'grassland': EXCEPTIONAL, 'ju
         'jumping':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': POOR,'tundra': POOR},
         'climbing':{'arctic': DEATH,'desert': DEATH, 'grassland': DEATH, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': FAIR,'tundra': DEATH},
         'flying':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': FAIR, 'jungle': EXCEPTIONAL, 'ocean': NEUTRAL, 'forest': EXCEPTIONAL,'tundra': NEUTRAL},
-        'swimming':{'arctic': DEATH,'desert': DEATH , 'grassland': DEATH, 'jungle': POOR, 'ocean': EXCEPTIONAL, 'forest': DEATH,'tundra':DEATH}
+        'swimming':{'arctic': DEATH,'desert': DEATH , 'grassland': DEATH, 'jungle': NEUTRAL, 'ocean': EXCEPTIONAL, 'forest': DEATH,'tundra':DEATH}
         }
 
 BREATH = {'lungs':{'arctic':NEUTRAL,'desert':NEUTRAL , 'grassland':NEUTRAL, 'jungle':NEUTRAL, 'ocean': DEATH, 'forest':NEUTRAL,'tundra':NEUTRAL},
@@ -39,4 +40,11 @@ BREATH = {'lungs':{'arctic':NEUTRAL,'desert':NEUTRAL , 'grassland':NEUTRAL, 'jun
           'internal gills':{'arctic':DEATH,'desert':DEATH, 'grassland':DEATH, 'jungle':DEATH, 'ocean':EXCEPTIONAL, 'forest':DEATH,'tundra':DEATH}, #fish/aquatic
           'tracheae': {'arctic': NEUTRAL,'desert':NEUTRAL, 'grassland':NEUTRAL, 'jungle':NEUTRAL, 'ocean': DEATH, 'forest':NEUTRAL,'tundra':NEUTRAL} #bugs
           }
+
+COLOR = {'black':{'arctic': POOR,'desert':NEUTRAL,'grassland':NEUTRAL,'jungle':NEUTRAL,'ocean':NEUTRAL,'forest':NEUTRAL,'tundra':POOR},
+         'brown': {'arctic':POOR,'desert':FAIR,'grassland':FAIR,'jungle':FAIR,'ocean':NEUTRAL,'forest':FAIR,'tundra':FAIR},
+         'white': {'arctic': EXCEPTIONAL,'desert':POOR,'grassland':POOR,'jungle':POOR,'ocean':POOR,'forest':POOR,'tundra':EXCEPTIONAL},
+         'colorful': {'arctic':DEATH,'desert':POOR,'grassland':POOR,'jungle':NEUTRAL,'ocean':NEUTRAL,'forest':POOR,'tundra':DEATH},
+         'stripes': {'arctic':POOR,'desert':FAIR,'grassland':NEUTRAL,'jungle':FAIR,'ocean':FAIR,'forest':NEUTRAL,'tundra':NEUTRAL},
+        }
 
