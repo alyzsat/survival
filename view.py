@@ -102,7 +102,16 @@ class SurvivalGame:
         font = pygame.font.Font(None, 70)
         for ft in ATTRIBUTES[self._feature].keys():
             y_pos += 85
-            pygame.draw.rect(surface,  pygame.color.Color("#60cadb"), (x_pos,y_pos,400,65))
+            
+            if self._animal.breath == ft \
+            or self._animal.diet == ft \
+            or self._animal.skin == ft \
+            or self._animal.move == ft:
+                color = "#5392d6"
+            else:
+                color = "#60dbec"
+                
+            pygame.draw.rect(surface,  pygame.color.Color(color), (x_pos,y_pos,400,65))
             text = font.render(ft.capitalize(), True, white)
             surface.blit(text,(400-text.get_width()/2,y_pos+10))
         
