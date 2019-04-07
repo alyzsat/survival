@@ -29,9 +29,7 @@ class SurvivalGame:
     def run(self):
         pygame.init()
         pygame.display.set_mode((800, 800))
-        
-       # aa.ENVIRONMENTS.append("space")
-        while self._running:
+                while self._running:
             if self._mode == START_SCREEN:
                 self._draw_start_screen()
                 
@@ -45,7 +43,6 @@ class SurvivalGame:
                 
                         
             elif self._mode == LOSE_SCREEN:
-                print("game over in the run")
                 self._game_over()
                 #something goes here
                 pass
@@ -75,15 +72,10 @@ class SurvivalGame:
     def _game_loop(self):
         for e in aa.ENVIRONMENTS:
             self._environment = "desert" #e 
-            print(self._animal.is_alive(), self._animal.hp)    
-            if self._animal.is_alive():
-                print('in the if')
-                self._draw_environment()
-                print(e, self._animal.hp)
-                self._animal.will_survive(e)
-                self._draw_hp_bar(self._animal.hp)
-            else:
-                print("end the screen")
+            self._draw_environment()
+            self._animal.will_survive(e)
+            self._draw_hp_bar(self._animal.hp)
+            if not self._animal.is_alive():
                 self._mode = LOSE_SCREEN
                 break
         if self._mode != LOSE_SCREEN:
@@ -94,11 +86,12 @@ class SurvivalGame:
         surface = pygame.display.get_surface()
 
         font = pygame.font.Font(None, 100)
-        gameOver = font.render("Game Over", True, white)
+        gameOver = font.render("Game Over :(", True, white)
+        surface.blit(gameOver, (200,400))
+        
         # Draws the start button
-      #  pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
-
-    #    surface.blit(gameOver, (320,520) 
+      # pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
+       
     
     
     
