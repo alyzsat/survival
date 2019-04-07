@@ -161,8 +161,8 @@ class SurvivalGame:
     def _draw_start_screen(self):
         self._setup_game()
         surface = pygame.display.get_surface()
-        surface.fill(black)
-
+        self._draw_default_background()
+        
         font = pygame.font.Font(None, 100)
         start_text = font.render("Start", True, white)
         # Draws the start button
@@ -181,6 +181,7 @@ class SurvivalGame:
         
         
     def _draw_build_screen(self):
+        self._draw_default_background()
         surface = pygame.display.get_surface()
         font = pygame.font.Font(None, 100)
         
@@ -225,8 +226,7 @@ class SurvivalGame:
                     
     def _draw_win_screen(self):
         surface = pygame.display.get_surface()
-        surface.fill(black)
-        
+        self._draw_default_background()
         self._draw_hp_bar()
         
         font = pygame.font.Font(None,90)
@@ -273,6 +273,12 @@ class SurvivalGame:
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         self._draw_hp_bar()
         
+    
+    def _draw_default_background(self):
+        surface = pygame.display.get_surface()
+        img = pygame.image.load("default.png")
+        surface.blit(pygame.transform.scale(img, (800,800)), (0,0))
+        
         
     def _add_dark_overlay(self):
         screen = pygame.display.get_surface()
@@ -285,8 +291,8 @@ class SurvivalGame:
         self._feature = 0
         self._next_game_screen = False
         self._environments = aa.ENVIRONMENTS
-        self._before_enviro = True
         random.shuffle(self._environments)
+        self._before_enviro = True
         self._environment = 0
         self._animal = Animal(None, None, None, None)
 
