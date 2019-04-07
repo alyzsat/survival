@@ -96,10 +96,10 @@ class SurvivalGame:
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
         
-        # 400,650,400,100
+        # 620,700,160,80
         elif self._mode == GAME_SCREEN:
-            if cursor_x >= 400 and cursor_x <= 800 \
-            and cursor_y >= 650 and cursor_y <= 750:
+            if cursor_x >= 620 and cursor_x <= 780 \
+            and cursor_y >= 700 and cursor_y <= 780:
                 if not self._animal.is_alive():
                     self._mode = LOSE_SCREEN
                 elif self._environment <= len(self._environments) - 2:
@@ -131,8 +131,8 @@ class SurvivalGame:
         
         font = pygame.font.Font(None, 70)
         next_text = font.render("Next", True, white)
-        pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (400,650,400,100))
-        surface.blit(next_text, (400,650))
+        pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (620,700,160,80))
+        surface.blit(next_text, (645,720))
                 
                 
     def _draw_game_over_screen(self):
