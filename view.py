@@ -21,9 +21,10 @@ class SurvivalGame:
         self._running = True
         self._mode = START_SCREEN
         self._feature = 0
-        self._environment = None #"desert" #Does this need to be changed later?
+        self._environments = aa.ENVIRONMENTS[:4]
+        random.shuffle (self._environments)
+        self._environment = 0 #"desert" #Does this need to be changed later?
         self._animal = Animal(None, None, None, None) #Kill the game if user does not select all the animal attributes
-        random.shuffle (aa.ENVIRONMENTS)
         
 
     def run(self):
@@ -41,14 +42,11 @@ class SurvivalGame:
                 self._draw_build_screen()
                 
             elif self._mode == GAME_SCREEN:
-                self._game_loop()
-                
-                        
+                self._draw_game_screen()
+                   
             elif self._mode == LOSE_SCREEN:
                 print("game over in the run")
                 self._game_over()
-                #something goes here
-                pass
                 
             elif self._mode == WIN_SCREEN:
                 self._draw_win_screen()
@@ -71,6 +69,27 @@ class SurvivalGame:
                 self._running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._handle_click()
+                
+                
+    def _draw_game_screen(self):
+        self._draw_environment()
+        enviro = self._environments[self._environment]
+        if self._animal.is_alive() and self._environment <= len(self._environments) - 2:
+            self._environment += 1
+            print("Before", enviro, self._animal.hp)
+            self._animal.will_survive(enviro)
+            print("After", enviro, self._animal.hp)
+        elif self._animal.is_alive() and self._environment == len(self._environments) - 1:
+            print("Before", enviro, self._animal.hp)
+            self._animal.will_survive(enviro)
+            print("After", enviro, self._animal.hp)
+            self._mode = WIN_SCREEN
+        else:
+            print("After", self._environments[self._environment], self._animal.hp)
+            self._mode = LOSE_SCREEN
+            print("end the screen")
+            
+
 
     def _game_loop(self):
         for e in aa.ENVIRONMENTS:
@@ -89,17 +108,14 @@ class SurvivalGame:
         if self._mode != LOSE_SCREEN:
             self._mode = WIN_SCREEN
                 
+                
     def _game_over(self):
         pygame.display.set_mode((800, 800))
         surface = pygame.display.get_surface()
 
         font = pygame.font.Font(None, 100)
         gameOver = font.render("Game Over", True, white)
-        # Draws the start button
-      #  pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
-
-    #    surface.blit(gameOver, (320,520) 
-    
+        surface.blit(gameOver, (0,0))
     
     
     def _draw_start_screen(self):
@@ -203,7 +219,7 @@ class SurvivalGame:
         surface = pygame.display.get_surface()
         surface.fill((0,0,0))
         
-        self._draw_hp_bar(self._animal.hp)
+        self._draw_hp_bar()
         
         font = pygame.font.Font(None,90)
         text1 = font.render("You have survived!", True, white)
@@ -231,7 +247,7 @@ class SurvivalGame:
             self._animal.change_breath(feature)
         
         
-    def _draw_hp_bar (self, hp):
+    def _draw_hp_bar (self):
         surface = pygame.display.get_surface()
         
         surface = pygame.display.get_surface()
@@ -241,7 +257,7 @@ class SurvivalGame:
                   "#efe702", "#bbef02", "#88ef02", "#40e214", "#20c40d"]
         
         for i in range(len(colors)):
-            if hp >= (i + 1) * 10:
+            if self._animal.hp >= (i + 1) * 10:
                 pygame.draw.rect(surface, pygame.color.Color(colors[i]), (150+50*i,50,50,40))
                 
         font = pygame.font.Font(None, 70)
@@ -251,11 +267,9 @@ class SurvivalGame:
         
     def _draw_environment(self):
         screen = pygame.display.get_surface()
-        img = pygame.image.load(f"{self._environment}.png")
+        img = pygame.image.load(f"{self._environments[self._environment]}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
-        
-        surface = pygame.display.get_surface()
-        pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
+        self._draw_hp_bar()
 
     
 
