@@ -72,7 +72,6 @@ class SurvivalGame:
                 self._running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._handle_click()
-                pass
 
 
     def _handle_click(self):
