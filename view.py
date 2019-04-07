@@ -368,6 +368,4 @@ class SurvivalGame:
                 self._sentence += f"Due to your {self._most_damaging_feature}, you lost health. This doesn't help you in this sort of environment."
         else:
             self._sentence = f"{random.choice(sentence_parts['h same'])}"
-            
 
-SurvivalGame().run()
