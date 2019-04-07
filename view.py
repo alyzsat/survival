@@ -180,7 +180,6 @@ class SurvivalGame:
         
         img = pygame.image.load(f"{self._environment}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
-         
         self._draw_hp_bar(self._animal.hp)
         
         
