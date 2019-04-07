@@ -5,7 +5,8 @@ from mechanics import Animal
 START_SCREEN = 0
 BUILD_SCREEN = 1
 GAME_SCREEN = 2
-END_SCREEN = 3
+WIN_SCREEN = 3
+LOSE_SCREEN = 4
 
 ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
 ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
@@ -39,7 +40,12 @@ class SurvivalGame:
             elif self._mode == GAME_SCREEN:
                 self._draw_environment()
                 
+            elif self._mode == WIN_SCREEN:
+                self._draw_win_screen()
+                
             else:
+                # If something goes wrong and we bring up a screen that we don't have,
+                # display this
                 surface = pygame.display.get_surface()
                 surface.fill(white)
 
@@ -152,6 +158,27 @@ class SurvivalGame:
                 if cursor_x >= 200 and cursor_x <= 600 \
                 and cursor_y >= y_pos and cursor_y <= y_pos + 65:
                     self._change_feature(ft)
+                    
+                    
+    def _draw_win_screen(self):
+        surface = pygame.display.get_surface()
+        surface.fill((0,0,0))
+        
+        self._draw_hp_bar(self._animal.hp)
+        
+        font = pygame.font.Font(None,90)
+        text1 = font.render("You have survived!", True, white)
+        text2 = font.render("Your animal is superior!", True, white)
+        text3 = font.render("Your score is", True, white)
+        
+        font = pygame.font.Font(None,150)
+        text4 = font.render(str(self._animal.hp), True, white)
+        
+        surface.blit(text1, (400-text1.get_width()/2,200))
+        surface.blit(text2, (400-text2.get_width()/2,300))
+        surface.blit(text3, (400-text3.get_width()/2,400))
+        surface.blit(text4, (400-text4.get_width()/2,500))
+        
                      
                     
     def _change_feature(self, feature: str):
