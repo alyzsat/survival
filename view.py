@@ -1,6 +1,7 @@
 import pygame
 import animal_attributes as aa
 from mechanics import Animal
+from sentences import d as sentence_parts
 import random
 
 START_SCREEN = 0
@@ -105,9 +106,12 @@ class SurvivalGame:
                 elif self._environment <= len(self._environments) - 2:
                     if self._before_enviro:
                         self._before_enviro = False
+                        self._last_known_health = self._animal.hp
                         self._animal.will_survive(self._environments[self._environment])
+                        self._write_enviro_sentence()
                     else:
                         self._environment += 1
+                        self._write_intro_sentence()
                         self._before_enviro = True
                 else:
                     self._animal.will_survive(self._environments[self._environment])
@@ -115,7 +119,6 @@ class SurvivalGame:
                         self._mode = WIN_SCREEN
                     else:
                         self._mode = LOSE_SCREEN
-                    
                     
                 
         # (200,600,400,100)
@@ -133,7 +136,27 @@ class SurvivalGame:
         next_text = font.render("Next", True, white)
         pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (620,700,160,80))
         surface.blit(next_text, (645,720))
-                
+        
+        img = pygame.image.load("backgrounds/text_box.png")
+        surface.blit(pygame.transform.scale(img, (800,800)), (0,0))
+        
+        font = pygame.font.Font(None, 30)
+        if self._sentence != None:
+            if "!" in self._sentence:
+                sentences = self._sentence.split("!")
+                for i in range(len(sentences)):
+                    narration = font.render(f"{sentences[i].lstrip()}", True, white)
+                    surface.blit(narration, (120,280+i*30))
+            elif "." in self._sentence:
+                sentences = self._sentence.split(".")
+                for i in range(len(sentences)):
+                    narration = font.render(f"{sentences[i].lstrip()}", True, white)
+                    surface.blit(narration, (120,280+i*30))
+            else:
+                narration = font.render(f"{self._sentence}", True, white)
+                surface.blit(narration, (120,280))
+            
+        
                 
     def _draw_game_over_screen(self):
         self._draw_environment()
@@ -294,7 +317,36 @@ class SurvivalGame:
         random.shuffle(self._environments)
         self._before_enviro = True
         self._environment = 0
+        self._last_known_health = 100
+        self._write_intro_sentence()
         self._animal = Animal(None, None, None, None)
-
+        
+        
+    def _write_intro_sentence(self):
+        sentence_split = random.choice(sentence_parts['intro']).split("_")
+        self._sentence = f"{self._environments[self._environment]}".join(sentence_split)
+    
+    
+    def _write_enviro_sentence(self):
+        attributes = [self._animal.skin, self._animal.diet, self._animal.move, self._animal.breath]
+        a_names = ["skin", "diet","move", "breath"]
+        
+        no_feature = False
+        for i in range(len(attributes)):
+            if attributes[i] == None:
+                no_feature = True
+                break
+        if no_feature:
+            self._sentence = f"{random.choice(sentence_parts['missing ' + a_names[i]])}. Make sure to select a choice for {a_names[i]} next time."
+        elif self._animal.hp == 0:
+            self._sentence = f"{random.choice(sentence_parts['h gone'])}"
+        elif self._last_known_health < self._animal.hp:
+            self._sentence = f"{random.choice(sentence_parts['h up'])}"
+        elif self._last_known_health > self._animal.hp:
+            self._sentence = f"{random.choice(sentence_parts['h down'])}"
+        else:
+            self._sentence = f"{random.choice(sentence_parts['h same'])}"
+            
+        
 
 SurvivalGame().run()
