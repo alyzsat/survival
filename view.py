@@ -176,7 +176,6 @@ class SurvivalGame:
         
     def _draw_environment(self):
         screen = pygame.display.get_surface()
-        screen.fill(white)
         
         img = pygame.image.load(f"{self._environment}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
