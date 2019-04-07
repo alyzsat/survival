@@ -17,7 +17,7 @@ SKIN = {'fur': {'arctic': EXCEPTIONAL, 'desert': NEUTRAL, 'grassland': NEUTRAL, 
         'dry skin': {'arctic': DEATH,'desert': POOR, 'grassland':FAIR, 'jungle':POOR, 'ocean':POOR, 'forest':POOR,'tundra':DEATH},
         'wet skin': {'arctic': DEATH,'desert':DEATH, 'grassland':DEATH, 'jungle': EXCEPTIONAL, 'ocean': FAIR, 'forest': POOR,'tundra':DEATH},
         'dry scales': {'arctic':DEATH,'desert': EXCEPTIONAL, 'grassland':FAIR, 'jungle':FAIR, 'ocean': DEATH, 'forest': POOR,'tundra':DEATH},
-        'wet scales': {'arctic':DEATH,'desert': DEATH, 'grassland':DEATH, 'jungle':FAIR, 'ocean': EXPCETIONAL, 'forest':POOR,'tundra': DEATH}
+        'wet scales': {'arctic':DEATH,'desert': DEATH, 'grassland':DEATH, 'jungle':FAIR, 'ocean': EXCEPTIONAL, 'forest':POOR,'tundra': DEATH}
               }
 
 
@@ -27,7 +27,7 @@ DIET = {'carnivore':{'arctic':FAIR,'desert':NEUTRAL, 'grassland':NEUTRAL, 'jungl
         }
 
 
-MOVE = {'running': {'arctic': FAIR,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': NEUTRAL, 'ocean': DEATH, 'forest': FOREST,'tundra': FAIR},
+MOVE = {'running': {'arctic': FAIR,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': NEUTRAL, 'ocean': DEATH, 'forest': EXCEPTIONAL,'tundra': FAIR},
         'jumping':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': EXCEPTIONAL, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': POOR,'tundra': POOR},
         'climbing':{'arctic': DEATH,'desert': DEATH, 'grassland': DEATH, 'jungle': EXCEPTIONAL, 'ocean': DEATH, 'forest': FAIR,'tundra': DEATH},
         'flying':{'arctic': NEUTRAL,'desert': FAIR, 'grassland': FAIR, 'jungle': EXCEPTIONAL, 'ocean': NEUTRAL, 'forest': EXCEPTIONAL,'tundra': NEUTRAL},
