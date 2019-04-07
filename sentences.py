@@ -8,13 +8,17 @@ d = { "intro" : ["You are now in the _.",
                         "Welcome to the _. Prepare yourself!",
                         "You've somehow teleported to the _. I wonder how that works.",
                         "ETA to the _ - zero seconds.",
+                        "Your new home now. Maybe"
                         ],
-      "h down" : ["Your health has gone down.",
-                       "You have taken damage.",
+      "h down" : ["Your health has gone down. Your features aren't heling you here",
+                       "You have taken damage. Not strong enough to live here",
+                       "This place doesn't seem to good for you",
+                       "You're weak here",
                        "You are not suited for this environment.",
                        "Charles Darwin would be disappointed. You feel him curse you from th heavens.",
                        "You are not superior here. You barely make it out alive.",
-                       "This environment is too harsh for you."
+                       "This environment is too harsh for you.",
+                       "Your features aren't helping you here."
                        ],
       "h gone" : ["Your animal is donezo.",
                     "You're just a littleeeee dead. Haha jk.",
@@ -22,7 +26,12 @@ d = { "intro" : ["You are now in the _.",
                     "Your health just dropped.",
                     "Your health disappeared.",
                     "So this is where you fall",
-                    "Well ouch"
+                    "Well ouch",
+                    "This environment is definitely not for you",
+                    "Well that was a mistake",
+                    "You probably should've stayed where you were",
+                    "Too late to go back now",
+                    "What a short life"
                     ],
       "h up" : ["Mother Nature would be proud. You feel Her presence give you power.",
                      "Your features are exceptional! Health up!",
@@ -30,30 +39,42 @@ d = { "intro" : ["You are now in the _.",
                      "Survival comes easy to you here.You feel invigorated.",
                      "This environment is hardly a challenge with your features. You feel more energized than before.",
                      "Charles Darwin seems to praise you from the heavens. You feel blessed.",
-                     "You're a force to be reckoned with here. Confidence flows through your body."
+                     "You're a force to be reckoned with here. Confidence flows through your body.",
+                     "This environment is doing wonder for you",
+                     "This environment makes you feel right at home",
+                     "This place really suits you",
+                     "You've adapted well to this place"
                     ],
       "h same" : ["This environment seems to be alright for your animal.",
                     "Your animal can safely live here. At least for now.",
                     "This area seems to have no effect on you.",
                     "You animal feels okay.",
                     "No harm is being done to you here",
-                    "So far, so good."
+                    "So far, so good.",
+                    "You seem to be safe here"
                     ],
       "missing skin" : ["Your flesh is exposed. Instant death right there.",
                         "Where is your skin?",
-                        "You have no skin to protect yourself!"
+                        "You have no skin to protect yourself!",
+                        "Your organs are spilling"
                     ],
       "missing breath" : ["Uhhh, did you make sure to select a way to breathe?",
                           "Somehow, you can't breathe.",
-                          "You have no way of breathing"
+                          "You have no way of breathing",
+                          "You don't have a way to breathe"
                     ],
       "missing diet" : ["You chose a diet of nothing. What did you expect?",
                         "You don't have anything to eat.",
-                        "There's nothing for you to eat here."
+                        "There's nothing for you to eat here.",
+                        "You seem to be a bit of a picky eater",
+                        "You have no diet whatsoever",
+                        "You can't eat anything"
                     ],
       "missing move" : ["You can't move. How do you expect to survive here?",
                         "You absolutely cannot move",
-                        "You have no way of moving"
+                        "You have no way of moving",
+                        "You don't have a way to get from Point A to Point B.",
+                        "Looks like you can't get anywhere."
                     ]
       
       }
