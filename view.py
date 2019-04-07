@@ -269,20 +269,20 @@ class SurvivalGame:
         
     def _draw_environment(self):
         screen = pygame.display.get_surface()
-        img = pygame.image.load(f"{self._environments[self._environment]}.png")
+        img = pygame.image.load(f"backgrounds/{self._environments[self._environment]}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         self._draw_hp_bar()
         
     
     def _draw_default_background(self):
         surface = pygame.display.get_surface()
-        img = pygame.image.load("default.png")
+        img = pygame.image.load("backgrounds/default.png")
         surface.blit(pygame.transform.scale(img, (800,800)), (0,0))
         
         
     def _add_dark_overlay(self):
         screen = pygame.display.get_surface()
-        img = pygame.image.load("dark_overlay.png")
+        img = pygame.image.load("backgrounds/dark_overlay.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         self._draw_hp_bar()
         
