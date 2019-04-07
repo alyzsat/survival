@@ -31,11 +31,13 @@ class Animal:
         
     #adjust the hp, enviro is str
     #func changes the hp
-    def will_survive (self, enviro):
+    def will_survive (self, enviro) -> str:
+        '''Returns the feature that causes it to lose the most damage'''
         attributes = [self.skin, self.move, self.breath, self.diet]
         for att in attributes:
             if att == None:
                 self.kill()
+                return "missing bodily functions"
                 
         if self.is_alive():
             self.hp += SKIN [self.skin] [enviro]
@@ -47,6 +49,18 @@ class Animal:
                 self.hp = 100
             elif self.hp < 0:
                 self.hp = 0
+                
+            damages = [SKIN [self.skin] [enviro], DIET [self.diet] [enviro],
+                       MOVE [self.move] [enviro], BREATH [self.breath] [enviro]]
+            
+            if SKIN [self.skin] [enviro] < sum(damages)/len(damages):
+                return self.skin
+            if DIET [self.diet] [enviro] < sum(damages)/len(damages):
+                return self.diet
+            if MOVE [self.move] [enviro] < sum(damages)/len(damages):
+                return self.move
+            if BREATH [self.breath] [enviro] < sum(damages)/len(damages):
+                return self.breath
         
     def is_alive (self):
         return self.hp > 0

@@ -107,18 +107,20 @@ class SurvivalGame:
                     if self._before_enviro:
                         self._before_enviro = False
                         self._last_known_health = self._animal.hp
-                        self._animal.will_survive(self._environments[self._environment])
+                        self._most_damaging_feature = self._animal.will_survive(self._environments[self._environment])
                         self._write_enviro_sentence()
                     else:
                         self._environment += 1
                         self._write_intro_sentence()
                         self._before_enviro = True
                 else:
-                    self._animal.will_survive(self._environments[self._environment])
+                    self._most_damaging_feature = self._animal.will_survive(self._environments[self._environment])
+                    self._write_enviro_sentence()
                     if self._animal.is_alive():
                         self._mode = WIN_SCREEN
                     else:
                         self._mode = LOSE_SCREEN
+                        
                     
                 
         # (200,600,400,100)
@@ -340,13 +342,20 @@ class SurvivalGame:
             self._sentence = f"{random.choice(sentence_parts['missing ' + a_names[i]])}. Make sure to select a choice for {a_names[i]} next time."
         elif self._animal.hp == 0:
             self._sentence = f"{random.choice(sentence_parts['h gone'])}"
+            if no_feature:
+                self._sentence += "You haven't selected a " + a_names[i] + " type. You can't live without that."
+            else:
+                self._sentence += f"Your {self._most_damaging_feature} led to your death. That feature hurts your health in this environment."
         elif self._last_known_health < self._animal.hp:
-            self._sentence = f"{random.choice(sentence_parts['h up'])}"
+            self._sentence = f"{random.choice(sentence_parts['h up'])}"            
         elif self._last_known_health > self._animal.hp:
             self._sentence = f"{random.choice(sentence_parts['h down'])}"
+            if no_feature:
+                self._sentence += "You haven't selected a " + a_names[i] + " type"
+            else:
+                self._sentence += f"Due to your {self._most_damaging_feature}, you lost health. This doesn't help you in this sort of environment."
         else:
             self._sentence = f"{random.choice(sentence_parts['h same'])}"
             
-        
 
 SurvivalGame().run()
