@@ -1,11 +1,13 @@
 import pygame
 import animal_attributes as aa
 from mechanics import Animal
+import random
 
 START_SCREEN = 0
 BUILD_SCREEN = 1
 GAME_SCREEN = 2
-END_SCREEN = 3
+LOSE_SCREEN = 3
+WIN_SCREEN = 4
 
 ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
 ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
@@ -19,14 +21,15 @@ class SurvivalGame:
         self._running = True
         self._mode = START_SCREEN
         self._feature = 0
-        self._environment = "desert"
-        self._animal = Animal(None, None, None, None)
-
+        self._environment = None #"desert" #Does this need to be changed later?
+        self._animal = Animal(None, None, None, None) #Kill the game if user does not select all the animal attributes
+        random.shuffle (aa.ENVIRONMENTS)
 
     def run(self):
         pygame.init()
         pygame.display.set_mode((800, 800))
-
+        
+       # aa.ENVIRONMENTS.append("space")
         while self._running:
             if self._mode == START_SCREEN:
                 self._draw_start_screen()
@@ -37,7 +40,14 @@ class SurvivalGame:
                 self._draw_build_screen()
                 
             elif self._mode == GAME_SCREEN:
-                self._draw_environment()
+                self._game_loop()
+                
+                        
+            elif self._mode == LOSE_SCREEN:
+                print("game over in the run")
+                self._game_over()
+                #something goes here
+                pass
                 
             else:
                 surface = pygame.display.get_surface()
@@ -56,7 +66,36 @@ class SurvivalGame:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self._handle_click()
 
+    def _game_loop(self):
+        for e in aa.ENVIRONMENTS:
+            self._environment = "desert" #e 
+            print(self._animal.is_alive(), self._animal.hp)    
+            if self._animal.is_alive():
+                print('in the if')
+                self._draw_environment()
+                print(e, self._animal.hp)
+                self._animal.will_survive(e)
+                self._draw_hp_bar(self._animal.hp)
+            else:
+                print("end the screen")
+                self._mode = LOSE_SCREEN
+                break
+        if self._mode != LOSE_SCREEN:
+            self._mode = WIN_SCREEN
+                
+    def _game_over(self):
+        pygame.display.set_mode((800, 800))
+        surface = pygame.display.get_surface()
 
+        font = pygame.font.Font(None, 100)
+        gameOver = font.render("Game Over", True, white)
+        # Draws the start button
+      #  pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,500,400,100))
+
+    #    surface.blit(gameOver, (320,520) 
+    
+    
+    
     def _draw_start_screen(self):
         surface = pygame.display.get_surface()
 
@@ -127,7 +166,7 @@ class SurvivalGame:
             elif cursor_x >= 250 and cursor_x <= 550 \
             and cursor_y >= 700 and cursor_y <= 760:
                 self._mode = GAME_SCREEN
-                print("WORKED")
+               # print("WORKED")
                 
             y_pos = 100
             for ft in ATTRIBUTES[self._feature].keys():
@@ -175,15 +214,16 @@ class SurvivalGame:
         
     def _draw_environment(self):
         screen = pygame.display.get_surface()
-        screen.fill(white)
+      #  screen.fill(white)
         
         img = pygame.image.load(f"{self._environment}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         
         surface = pygame.display.get_surface()
         pygame.draw.rect(surface, pygame.color.Color("#000000"), (15,15,500,40))
+     #   pygame.draw.rect(surface, pygame.color.Color(white), Rect, width=0)
             
-        self._draw_hp_bar(self._animal.hp)
+   #     self._draw_hp_bar(self._animal.hp)
     
 
 SurvivalGame().run()
