@@ -94,19 +94,6 @@ class SurvivalGame:
                 self._animal.will_survive(enviro)
                 self._mode = WIN_SCREEN
             self._next_game_screen = False
-            
-
-    def _game_loop(self):
-        for e in aa.ENVIRONMENTS:
-            self._environment = "desert" #e 
-            self._draw_environment()
-            self._animal.will_survive(e)
-            self._draw_hp_bar(self._animal.hp)
-            if not self._animal.is_alive():
-                self._mode = LOSE_SCREEN
-                break
-        if self._mode != LOSE_SCREEN:
-            self._mode = WIN_SCREEN
                 
                 
     def _game_over(self):
@@ -316,6 +303,5 @@ class SurvivalGame:
         self._environment = 0
         self._animal = Animal(None, None, None, None)
 
-    
 
 SurvivalGame().run()
