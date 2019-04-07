@@ -8,6 +8,7 @@ BUILD_SCREEN = 1
 GAME_SCREEN = 2
 WIN_SCREEN = 3
 LOSE_SCREEN = 4
+LOADING_SCREEN = 5
 
 ATTRIBUTES = [aa.SKIN, aa.DIET, aa.MOVE, aa.BREATH]
 ANAMES = ["Skin", "Diet", "Movement", "Breathing"]
@@ -20,12 +21,6 @@ class SurvivalGame:
         pygame.display.set_caption("Survival of the Fittest")
         self._running = True
         self._mode = START_SCREEN
-        self._feature = 0
-        self._next_game_screen = False
-        self._environments = aa.ENVIRONMENTS[:4]
-        random.shuffle (self._environments)
-        self._environment = 0 #"desert" #Does this need to be changed later?
-        self._animal = Animal(None, None, None, None) #Kill the game if user does not select all the animal attributes
         
 
     def run(self):
@@ -39,6 +34,9 @@ class SurvivalGame:
                 surface = pygame.display.get_surface()
                 surface.fill((0,0,0))
                 self._draw_build_screen()
+                
+            elif self._mode == LOADING_SCREEN:
+                self._draw_loading_screen()
                 
             elif self._mode == GAME_SCREEN:
                 self._draw_game_screen()
@@ -112,16 +110,33 @@ class SurvivalGame:
                 
                 
     def _game_over(self):
-        pygame.display.set_mode((800, 800))
+        self._draw_environment()
+        self._add_dark_overlay()
         surface = pygame.display.get_surface()
 
         font = pygame.font.Font(None, 100)
         gameOver = font.render("Game Over :(", True, white)
-        surface.blit(gameOver, (200,400))
+        font = pygame.font.Font(None, 60)
+        gameOver1 = font.render("Your animal wasn't fit enough", True, white)
+        gameOver2 = font.render("Health Dropped Down To", True, white)
+        font = pygame.font.Font(None, 200)
+        gameOver3 = font.render("0", True, white)
+        surface.blit(gameOver, (400-gameOver.get_width()/2,200))
+        surface.blit(gameOver1, (400-gameOver1.get_width()/2,300))
+        surface.blit(gameOver2, (400-gameOver2.get_width()/2,350))
+        surface.blit(gameOver3, (400-gameOver3.get_width()/2,450))
+        
+        pygame.draw.rect(surface, pygame.color.Color("#60cadb"), (200,600,400,100))
+        font = pygame.font.Font(None, 100)
+        start_over = font.render("Start Over", True, white)
+        surface.blit(start_over, (400-start_over.get_width()/2,620))
+        
     
     
     def _draw_start_screen(self):
+        self._setup_game()
         surface = pygame.display.get_surface()
+        surface.fill((0,0,0))
 
         font = pygame.font.Font(None, 100)
         start_text = font.render("Start", True, white)
@@ -221,7 +236,12 @@ class SurvivalGame:
             cursor_x >= 400 and cursor_x <= 800 \
             and cursor_y >= 650 and cursor_y <= 750:
                 self._next_game_screen = True
-            
+                
+        # (200,600,400,100)
+        elif self._mode == LOSE_SCREEN:
+            if cursor_x >= 200 and cursor_x <= 600 \
+            and cursor_y >= 600 and cursor_y <= 700:
+                self._mode = START_SCREEN
                     
                     
     def _draw_win_screen(self):
@@ -279,6 +299,22 @@ class SurvivalGame:
         img = pygame.image.load(f"{self._environments[self._environment]}.png")
         screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
         self._draw_hp_bar()
+        
+        
+    def _add_dark_overlay(self):
+        screen = pygame.display.get_surface()
+        img = pygame.image.load("dark_overlay.png")
+        screen.blit(pygame.transform.scale(img, (800,800)), (0,0))
+        self._draw_hp_bar()
+        
+        
+    def _setup_game(self):
+        self._feature = 0
+        self._next_game_screen = False
+        self._environments = aa.ENVIRONMENTS[:4]
+        random.shuffle(self._environments)
+        self._environment = 0
+        self._animal = Animal(None, None, None, None)
 
     
 
